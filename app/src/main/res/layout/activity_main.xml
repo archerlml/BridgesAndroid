@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="100"
     android:background="@drawable/background_image">
-    <ImageButton
-        android:id="@+id/chapter1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/c1"/>
-    <ImageButton
-        android:id="@+id/bible1"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@drawable/c2"/>
-    <ImageView
-        android:id="@+id/pods"
+    <fragment android:name="edu.sjsu.minglu.biblestudyhelper.topFragment"
+        android:id="@+id/fragment_top"
+        android:layout_weight="50"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/pods_i"/>
+        tools:layout="@layout/fragment_top" />
+    <fragment android:name="edu.sjsu.minglu.biblestudyhelper.botFragment"
+        android:id="@+id/fragment_bot"
+        android:layout_weight="50"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_bot" />
 
 </LinearLayout>

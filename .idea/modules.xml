@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BibleStudyHelper.iml" filepath="$PROJECT_DIR$/BibleStudyHelper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BridgesAndroid.iml" filepath="$PROJECT_DIR$/BridgesAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
