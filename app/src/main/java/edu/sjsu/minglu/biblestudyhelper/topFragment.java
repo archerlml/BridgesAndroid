@@ -24,6 +24,11 @@ public class topFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static int[] imgs = { R.drawable.c1, R.drawable.c2, R.drawable.c3, R.drawable.c4,R.drawable.c5,R.drawable.c6,R.drawable.c7,R.drawable.c8 };
+    private int chapter = 0;
+    private int count = 0;
+    //private static int[][] passengers = { {R.drawable.c1_1, R.drawable.c1_2, R.drawable.c1_3, R.drawable.c1_4,R.drawable.c1_5}, {R.drawable.c2_1, R.drawable.c2_2, R.drawable.c2_3, R.drawable.c2_4,R.drawable.c2_5}, {R.drawable.c3_1, R.drawable.c3_2, R.drawable.c3_3, R.drawable.c3_4,R.drawable.c3_5}, {R.drawable.c4_1, R.drawable.c4_2, R.drawable.c4_3, R.drawable.c4_4,R.drawable.c4_5}, {R.drawable.c5_1, R.drawable.c5_2, R.drawable.c5_3, R.drawable.c5_4,R.drawable.c5_5}, {R.drawable.c6_1, R.drawable.c6_2, R.drawable.c6_3, R.drawable.c6_4,R.drawable.c6_5}, {R.drawable.c7_1, R.drawable.c7_2, R.drawable.c7_3, R.drawable.c7_4,R.drawable.c7_5}, {R.drawable.c8_1, R.drawable.c8_2, R.drawable.c8_3, R.drawable.c8_4,R.drawable.c8_5}};
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -63,14 +68,32 @@ public class topFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        // return inflater.inflate(R.layout.fragment_top, container, false);
-        View view=  inflater.inflate(R.layout.fragment_top, container, false);
-        image_view = (ImageView) view.findViewById(R.id.chapter1);
-        image_view.setImageResource(R.drawable.c2);
-        image_view.bringToFront();
+        final View view=  inflater.inflate(R.layout.fragment_top, container, false);
+        final ImageView imgFavorite = (ImageView) view.findViewById(R.id.chapter);
+        final ImageView bibleimg = (ImageView) view.findViewById(R.id.bible);
+        imgFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (chapter == 7)
+                    chapter = 0;
+                else
+                    chapter++;
+                imgFavorite.setImageResource(imgs[chapter]);
+                count = 0;
+                String id = "c" + chapter + "_0";
+                int resID = getResources().getIdentifier(id, "drawable", "edu.sjsu.minglu.biblestudyhelper");
+                ImageView temp = (ImageView) view.findViewById(R.id.bible);
+                temp.setImageResource(resID);
+
+            }
+        });
+        //image_view = (ImageView) view.findViewById(R.id.chapter);
+        //image_view.setImageResource(R.drawable.c2);
+        //image_view.bringToFront();
         return view;
     }
 

@@ -5,9 +5,10 @@
     tools:context="edu.sjsu.minglu.biblestudyhelper.botFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/question"
+        android:background="@drawable/pods_i"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="fill_parent" />
 
 </FrameLayout>

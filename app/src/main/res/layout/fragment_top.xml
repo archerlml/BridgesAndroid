@@ -2,23 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.sjsu.minglu.biblestudyhelper.topFragment">
+    tools:context="edu.sjsu.minglu.biblestudyhelper.topFragment"
+    >
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:orientation="vertical">
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2">
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:weightSum="1">
+            <ImageView
+                android:id="@+id/chapter"
+                android:background="@drawable/c1"
+                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="0.5"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+            <ImageView
+                android:id="@+id/bible"
+                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:background="@drawable/c8_1"
+                android:layout_margin="16dp"
+                android:layout_weight="0.5"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
+    </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/chapter1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/c1"/>
-    <ImageButton
-        android:id="@+id/bible1"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@drawable/c2"/>
-    <ImageView
-        android:id="@+id/pods"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/pods_i"/>
+
 
 
 </FrameLayout>
