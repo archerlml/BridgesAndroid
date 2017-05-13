@@ -1,6 +1,5 @@
 package edu.sjsu.minglu.biblestudyhelper;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -128,7 +126,8 @@ public class topFragment extends Fragment {
         final ImageView bibleimg = (ImageView) view.findViewById(R.id.bible);
         String id = "c" + (chapter + 1) + "_1";
         int resID = getResources().getIdentifier(id, "drawable", "edu.sjsu.minglu.biblestudyhelper");
-        bibleimg.setImageResource(resID);
+        //bibleimg.setImageResource(0);
+        //bibleimg.setImageResource(resID);
         imgFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,6 +135,7 @@ public class topFragment extends Fragment {
                     chapter = 0;
                 else
                     chapter++;
+                imgFavorite.setImageResource(0);
                 imgFavorite.setImageResource(imgs[chapter]);
                 count = 0;
                 String id = "c" + (chapter + 1) + "_1";
@@ -153,8 +153,8 @@ public class topFragment extends Fragment {
                     count++;
                 String id = "c" + (chapter + 1) + "_" + (count + 1);
                 int resID = getResources().getIdentifier(id, "drawable", "edu.sjsu.minglu.biblestudyhelper");
-                ImageView temp = (ImageView) view.findViewById(R.id.bible);
-                temp.setImageResource(resID);
+                //ImageView temp = (ImageView) view.findViewById(R.id.bible);
+                bibleimg.setImageResource(resID);
             }
         });
         bibleimg.setOnLongClickListener(new View.OnLongClickListener() {
