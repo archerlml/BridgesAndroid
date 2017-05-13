@@ -4,10 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.view.GestureDetector;
 
 
 /**
@@ -23,6 +26,9 @@ public class botFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int CLICK_DURATION = 200;
+    private int count = 0;
+    private static int[] imgs = { R.drawable.pods_i, R.drawable.pods_ii, R.drawable.pods_iii, R.drawable.pods_iiii};
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -65,8 +71,108 @@ public class botFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bot, container, false);
-    }
+        final View view = inflater.inflate(R.layout.fragment_bot, container, false);
+        final ImageView imageView = (ImageView) view.findViewById(R.id.question);
+        imageView.setImageResource(imgs[count]);
+//        imageView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                //double x1 = 0;
+//                //double x2 = 0;
+//                //double y1 = 0;
+//                //double y2 = 0;
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        if (count == 3)
+//                            return true;
+//                        else {
+//                            count++;
+//                            imageView.setImageResource(imgs[count]);
+//                        }
+//                        return true;
+//                    case MotionEvent.ACTION_UP:
+//                            if (count == 0)
+//                                return true;
+//                            else {
+//                                --count;
+//                                imageView.setImageResource(imgs[count]);
+//                            }
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
+//        return view;
+//    }
+
+
+        final GestureDetector gesture = new GestureDetector(getActivity(),
+                new GestureDetector.SimpleOnGestureListener() {
+
+                    @Override
+                    public boolean onDown(MotionEvent e) {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+                                           float velocityY) {
+                        final int SWIPE_MIN_DISTANCE = 120;
+                        final int SWIPE_MAX_OFF_PATH = 250;
+                        final int SWIPE_THRESHOLD_VELOCITY = 200;
+                        try {
+                            if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE
+                                    && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
+                                if (count == 3)
+                                    return true;
+                                else {
+                                    count++;
+                                    imageView.setImageResource(imgs[count]);
+                                }
+                            } else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE
+                                    && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
+                                if (count == 0)
+                                    return true;
+                                else {
+                                    --count;
+                                    imageView.setImageResource(imgs[count]);
+                                }
+                            }
+
+                            if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
+                                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                                if (count == 3)
+                                    return true;
+                                else {
+                                    count++;
+                                    imageView.setImageResource(imgs[count]);
+                                }
+
+                            } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
+                                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                                if (count == 0)
+                                    return true;
+                                else {
+                                    --count;
+                                    imageView.setImageResource(imgs[count]);
+                                }
+                            }
+                        } catch (Exception e) {
+                            // nothing
+                        }
+                        return super.onFling(e1, e2, velocityX, velocityY);
+                    }
+                });
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gesture.onTouchEvent(event);
+            }
+        });
+        return view;
+    };
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

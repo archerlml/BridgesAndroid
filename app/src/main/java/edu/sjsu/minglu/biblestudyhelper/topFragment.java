@@ -4,10 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 
 /**
@@ -74,7 +82,53 @@ public class topFragment extends Fragment {
        // return inflater.inflate(R.layout.fragment_top, container, false);
         final View view=  inflater.inflate(R.layout.fragment_top, container, false);
         final ImageView imgFavorite = (ImageView) view.findViewById(R.id.chapter);
+        final TextView button = (TextView) view.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String value = button.getText().toString();
+                if (value.equals("bible")) {
+                    button.setText("Return");
+                    String id = "t" + (chapter + 1) + "_" + (count + 1);
+                    int resID = getResources().getIdentifier(id, "raw", "edu.sjsu.minglu.biblestudyhelper");
+                    InputStream inputStream = getResources().openRawResource(resID);
+
+                    InputStreamReader inputreader = new InputStreamReader(inputStream);
+                    BufferedReader buffreader = new BufferedReader(inputreader);
+                    String line;
+                    StringBuilder text = new StringBuilder();
+
+                    try {
+                        while (( line = buffreader.readLine()) != null) {
+                            text.append(line);
+                            text.append('\n');
+                        }
+                        //TextView go_back = (TextView) view.findViewById(R.id.go_back);
+                        //go_back.setVisibility(View.VISIBLE);
+                        TextView textview = (TextView) view.findViewById(R.id.bible_context);
+                        textview.setText(text);
+                        //LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.top_layout);
+                        //linearLayout.setVisibility(View.GONE);
+                        //imgFavorite.setVisibility(View.GONE);
+                        //bibleimg.setVisibility(View.GONE);
+                        textview.setBackgroundColor(getResources().getColor(R.color.white));
+                        textview.setMovementMethod(new ScrollingMovementMethod());
+                        textview.setVisibility(View.VISIBLE);
+                    } catch (IOException e) {
+                        return;
+                    }
+                } else {
+                    TextView textview = (TextView) view.findViewById(R.id.bible_context);
+                    button.setText("bible");
+                    textview.setVisibility(View.GONE);
+                }
+            }
+        });
+        imgFavorite.setImageResource(imgs[chapter]);
         final ImageView bibleimg = (ImageView) view.findViewById(R.id.bible);
+        String id = "c" + (chapter + 1) + "_1";
+        int resID = getResources().getIdentifier(id, "drawable", "edu.sjsu.minglu.biblestudyhelper");
+        bibleimg.setImageResource(resID);
         imgFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,16 +138,63 @@ public class topFragment extends Fragment {
                     chapter++;
                 imgFavorite.setImageResource(imgs[chapter]);
                 count = 0;
-                String id = "c" + chapter + "_0";
+                String id = "c" + (chapter + 1) + "_1";
                 int resID = getResources().getIdentifier(id, "drawable", "edu.sjsu.minglu.biblestudyhelper");
                 ImageView temp = (ImageView) view.findViewById(R.id.bible);
                 temp.setImageResource(resID);
-
             }
         });
-        //image_view = (ImageView) view.findViewById(R.id.chapter);
-        //image_view.setImageResource(R.drawable.c2);
-        //image_view.bringToFront();
+        bibleimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (count == 4)
+                    count = 0;
+                else
+                    count++;
+                String id = "c" + (chapter + 1) + "_" + (count + 1);
+                int resID = getResources().getIdentifier(id, "drawable", "edu.sjsu.minglu.biblestudyhelper");
+                ImageView temp = (ImageView) view.findViewById(R.id.bible);
+                temp.setImageResource(resID);
+            }
+        });
+        bibleimg.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                //your stuff
+                String id = "t" + (chapter + 1) + "_" + (count + 1);
+                int resID = getResources().getIdentifier(id, "raw", "edu.sjsu.minglu.biblestudyhelper");
+                InputStream inputStream = getResources().openRawResource(resID);
+
+                InputStreamReader inputreader = new InputStreamReader(inputStream);
+                BufferedReader buffreader = new BufferedReader(inputreader);
+                String line;
+                StringBuilder text = new StringBuilder();
+
+                try {
+                    while (( line = buffreader.readLine()) != null) {
+                        text.append(line);
+                        text.append('\n');
+                    }
+                    //TextView go_back = (TextView) view.findViewById(R.id.go_back);
+                    //go_back.setVisibility(View.VISIBLE);
+                    TextView temp = (TextView) view.findViewById(R.id.button);
+                    temp.setText("Return");
+                    TextView textview = (TextView) view.findViewById(R.id.bible_context);
+                    textview.setText(text);
+                    //LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.top_layout);
+                    //linearLayout.setVisibility(View.GONE);
+                    //imgFavorite.setVisibility(View.GONE);
+                    //bibleimg.setVisibility(View.GONE);
+                    textview.setBackgroundColor(getResources().getColor(R.color.white));
+                    textview.setMovementMethod(new ScrollingMovementMethod());
+                    textview.setVisibility(View.VISIBLE);
+                } catch (IOException e) {
+                    return false;
+                }
+                return true;
+            }
+        });
         return view;
     }
 

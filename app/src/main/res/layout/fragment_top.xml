@@ -7,18 +7,37 @@
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="2"
+        android:id="@+id/top_layout"
         android:orientation="vertical">
         <LinearLayout android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.2">
+            android:layout_weight="1.8">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:id="@+id/button"
+                android:text="bible"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:background="@color/pink"
+                />
         </LinearLayout>
         <LinearLayout android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.8"
+            android:layout_weight="0.2"
             android:weightSum="1">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dp"
+                android:id="@+id/bible_context"
+                android:maxLines = "16"
+                android:scrollbars = "vertical"
+                android:visibility="gone"
+                />
             <ImageView
                 android:id="@+id/chapter"
-                android:background="@drawable/c1"
                 android:layout_height="match_parent"
                 android:layout_width="fill_parent"
                 android:layout_margin="16dp"
@@ -29,15 +48,10 @@
                 android:id="@+id/bible"
                 android:layout_height="match_parent"
                 android:layout_width="fill_parent"
-                android:background="@drawable/c8_1"
                 android:layout_margin="16dp"
                 android:layout_weight="0.5"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
         </LinearLayout>
     </LinearLayout>
-
-
-
-
 </FrameLayout>
